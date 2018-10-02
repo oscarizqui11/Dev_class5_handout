@@ -32,6 +32,8 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
+	
+	//App->render->Blit();
 
 		// TODO 9: Complete the draw function
 
@@ -126,6 +128,18 @@ bool j1Map::Load(const char* file_name)
 
 	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
+	pugi::xml_node layer;
+	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
+	{
+		MapLayers* set = new MapLayers();
+
+		if (ret == true)
+		{
+			ret = LoadLayer(layer, set);
+		}
+
+		data.maplayers.add(set);
+	}
 
 
 	if(ret == true)
@@ -147,16 +161,16 @@ bool j1Map::Load(const char* file_name)
 
 		// TODO 4: Add info here about your loaded layers
 		// Adapt this vcode with your own variables
-		/*
-		p2List_item<MapLayer*>* item_layer = data.layers.start;
+		
+		p2List_item<MapLayers*>* item_layer = data.maplayers.start;
 		while(item_layer != NULL)
 		{
-			MapLayer* l = item_layer->data;
+			MapLayers* l = item_layer->data;
 			LOG("Layer ----");
 			LOG("name: %s", l->name.GetString());
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer = item_layer->next;
-		}*/
+		}
 	}
 
 	map_loaded = ret;
@@ -295,8 +309,6 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayers* layer)
 {
 	bool ret = true;
-	void* ptr;
-	//pugi::xml_node layer = node.child("layer");
 
 	if (layer == NULL)
 	{
@@ -309,6 +321,20 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayers* layer)
 		layer->height = node.attribute("height").as_uint();
 		layer->width = node.attribute("width").as_uint();
 
-		memset(ptr, 0, (layer->height * layer->width));
+		layer->tilelist = new uint[(layer->height * layer->width)];
+		memset(layer->tilelist, 0, sizeof(uint)*(layer->height * layer->width));
+
+		//for (pugi::xml_node tileset = map_file.child("map").child("tileset"); tileset; tileset = tileset.next_sibling("tileset"))
+		pugi::xml_node tile;
+		uint i = 0;
+		for(tile = node.child("data").child("tile"); tile; tile = tile.next_sibling("tile"))
+		{
+			layer->tilelist[i] = node.child("data").child("tile").attribute("gid").as_uint(0);
+			i++;
+		}
+
+
 	}
+
+	return ret;
 }

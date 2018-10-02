@@ -1,9 +1,13 @@
-﻿  j1Map.cpp
-c:\users\oscaric1\downloads\dev_class5_handout\motor2d\j1map.cpp(298): error C2082: redefinition of formal parameter 'layer'
-  Generating Code...
-  Compiling...
+﻿  j1Main.cpp
   j1App.cpp
-  Generating Code...
-  Compiling...
+  j1Audio.cpp
+  j1Input.cpp
+  j1Map.cpp
   j1Scene.cpp
-  Generating Code...
+  p2Log.cpp
+  j1Render.cpp
+  j1Textures.cpp
+  j1Window.cpp
+  pugixml.cpp
+  Generando código...
+  Motor2D.vcxproj -> E:\UNIVERSIDAD\2o 2o\Develoment\Dev_class5_handout\Debug\Motor 2D.exe

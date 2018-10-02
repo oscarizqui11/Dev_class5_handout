@@ -12,6 +12,8 @@ struct MapLayers
 	p2SString			name;
 	int					width;
 	int					height;
+
+	uint*				tilelist;
 };
 // ----------------------------------------------------
 
