@@ -18,7 +18,8 @@ j1Window::~j1Window()
 {
 }
 
-// Called before render is available
+// Called before render is available ----------------------------------------------
+
 bool j1Window::Awake(pugi::xml_node& config)
 {
 	LOG("Init SDL window & surface");
@@ -79,7 +80,8 @@ bool j1Window::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-// Called before quitting
+// Called before quitting----------------------------------------------
+
 bool j1Window::CleanUp()
 {
 	LOG("Destroying SDL window and quitting all SDL systems");
@@ -95,18 +97,22 @@ bool j1Window::CleanUp()
 	return true;
 }
 
-// Set new window title
+// Set new window title ----------------------------------------------
+
 void j1Window::SetTitle(const char* new_title)
 {
-	//title.create(new_title);
 	SDL_SetWindowTitle(window, new_title);
 }
+
+// ----------------------------------------------
 
 void j1Window::GetWindowSize(uint& width, uint& height) const
 {
 	width = this->width;
 	height = this->height;
 }
+
+// ----------------------------------------------
 
 uint j1Window::GetScale() const
 {
